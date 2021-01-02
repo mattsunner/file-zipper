@@ -29,11 +29,21 @@ class Zipper:
         with ZipFile(file_path, file_status) as zip:
             zip.extractall(path=destination_path)
 
+    def file_zipper(self, file_path, zip_path_name):
+        file_paths_to_zip = []
+
+        for root, directories, files in os.walk(file_path):
+            for file_name in files:
+                filepath = os.path.join(root, file_name)
+                file_paths_to_zip.append(filepath)
+
+        with ZipFile(zip_path_name, 'w') as zip:
+            for file in file_paths_to_zip:
+                zip.write(file)
+
 
 def main():
-    test = Zipper()
-    print(test.file_unzipper(file_path='./input/zip_1.zip',
-                             file_status='r', destination_path='./output'))
+    pass
 
 
 if __name__ == "__main__":
