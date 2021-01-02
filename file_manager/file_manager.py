@@ -10,7 +10,7 @@ class Zipper:
         self.zip_path_name = zip_path_name
         self.file_paths_to_zip = file_paths_to_zip
 
-    def zip_viewer(self, file_path):
+    def zip_viewer(self):
         """zip_viewer: Method to view contents of a zipped directory.
 
         Args:
@@ -25,10 +25,15 @@ class Zipper:
         except FileNotFoundError:
             print('File Path Not Found')
 
+    def file_unzipper(self, file_path, file_status, destination_path):
+        with ZipFile(file_path, file_status) as zip:
+            zip.extractall(path=destination_path)
+
 
 def main():
-    test = Zipper(file_path='../input/zip_1.zip')
-    print(test.zip_viewer())
+    test = Zipper()
+    print(test.file_unzipper(file_path='./input/zip_1.zip',
+                             file_status='r', destination_path='./output'))
 
 
 if __name__ == "__main__":
